@@ -1,4 +1,5 @@
 export interface ITask {
     id: string,
-    text: String
+    text: String,
+    data: any
 }

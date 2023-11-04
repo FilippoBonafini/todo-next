@@ -12,10 +12,21 @@ const AddTask = () => {
     const [modalOpen, setModalOpen] = useState<boolean>(false)
     const [newTaskValue, setNewTaskValue] = useState<string>('');
     const handleSubmitNewTodo: FormEventHandler<HTMLFormElement> = async (e) => {
+
+        // Ottenere la data attuale nel formato desiderato
+        const currentDate = new Date(); // Crea un oggetto Data con la data e l'ora attuali
+        const formattedDate = currentDate.toISOString(); // Formatta la data come stringa nel formato ISO (ad esempio: "2023-11-04T12:34:56.789Z")
+
         e.preventDefault();
         await addTodo({
             id: uuidv4(),
             text: newTaskValue,
+            data: {
+                created: formattedDate, // Inserisce la data attuale formattata in "created"
+                complete: false,
+                expiration: 'data di scadenza',
+                description: 'descrizione'
+            }
         });
         setNewTaskValue('');
         setModalOpen(false)
@@ -35,6 +46,7 @@ const AddTask = () => {
                     <h3 className='font-bold text-lg'>Aggiungi</h3>
                     <div className='modal-action'>
                         <input
+                            required
                             value={newTaskValue}
                             onChange={(e) => setNewTaskValue(e.target.value)}
                             type="text"

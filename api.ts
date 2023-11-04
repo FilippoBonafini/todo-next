@@ -9,9 +9,23 @@ export const getAllTodos = async (): Promise<ITask[]> => {
     return todos.data;
 }
 
+// RECUPERA TUTTI I TODO COMPLETATI
+export const getCompleteTodos = async (): Promise<ITask[]> => {
+    const res = await fetch(`${baseUrl}/tasks/complete`, { cache: 'no-store' })
+    const todos = await res.json()
+    return todos.data;
+}
+
+// RECUPERA TUTTI I TODO DA COMPLEATARE
+export const getIncompleteTodos = async (): Promise<ITask[]> => {
+    const res = await fetch(`${baseUrl}/tasks/incomplete`, { cache: 'no-store' })
+    const todos = await res.json()
+    return todos.data;
+}
+
 // AGGIUNGE UN TODO 
 export const addTodo = async (todo: ITask): Promise<ITask> => {
-    const res = await fetch(`${baseUrl}/tasks`, {
+    const res = await fetch(`${baseUrl}/tasks/add`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

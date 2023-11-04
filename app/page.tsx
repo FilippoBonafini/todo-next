@@ -1,10 +1,11 @@
-import { getAllTodos } from "@/api";
+import { getIncompleteTodos, getCompleteTodos } from "@/api";
 import AddTask from "./components/AddTask";
 import TodoList from "./components/TodoList";
 
 export default async function Home() {
 
-  const tasks = await getAllTodos()
+  const completeTasks = await getCompleteTodos()
+  const incompleteTasks = await getIncompleteTodos()
 
 
   return (
@@ -13,8 +14,7 @@ export default async function Home() {
         <h1 className="text-2xl font-bold">ToDo List</h1>
         <AddTask />
       </div>
-      <TodoList tasks={tasks} />
-
+      <TodoList incompleteTasks={incompleteTasks} completeTasks={completeTasks} />
     </main>
   )
 }
